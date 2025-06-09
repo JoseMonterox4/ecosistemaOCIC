@@ -1,0 +1,287 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Ecosistema OCIC</title>
+  <script src="https://cdn.tailwindcss.com"></script> 
+  <style>
+    @keyframes pulse {
+      0%, 100% { opacity: 0.4; transform: scale(1); }
+      50% { opacity: 0.8; transform: scale(1.05); }
+    }
+
+    .animate-pulse-custom {
+      animation: pulse 2s infinite;
+    }
+
+    .planet-orbit {
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      border: 1px dashed rgba(255, 255, 255, 0.1);
+      border-radius: 50%;
+      z-index: 0;
+    }
+
+    .planet {
+      position: absolute;
+      border-radius: 50%;
+      cursor: pointer;
+      transition: transform 0.3s ease;
+      z-index: 10;
+    }
+
+    .planet:hover {
+      transform: scale(1.2);
+    }
+
+    .planet-name {
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      font-size: 0.7rem;
+      color: white;
+      text-shadow: 0 0 5px black;
+      pointer-events: none;
+      white-space: nowrap;
+    }
+
+    @media (max-width: 768px) {
+      .planet-name {
+        display: none;
+      }
+    }
+  </style>
+</head>
+<body class="bg-black text-white min-h-screen font-sans">
+
+  <!-- Header -->
+  <header class="fixed top-0 left-0 right-0 z-50 bg-black bg-opacity-70 backdrop-blur-md px-4 py-4 flex justify-between items-center border-b border-gray-800">
+    <div class="flex items-center space-x-2">
+      <img src="assets/ocic-logo.png" alt="Logo OCIC" class="h-8 w-auto">
+      <h1 class="text-xl md:text-2xl font-bold bg-gradient-to-r from-blue-400 to-purple-500 text-transparent bg-clip-text">Ecosistema OCIC</h1>
+    </div>
+  </header>
+
+  <main class="container mx-auto pt-20 pb-12 px-4 md:px-6">
+    <section class="mb-16 text-center md:text-left md:flex md:items-center md:space-x-10">
+      <!-- Sistema Solar (Izquierda) -->
+      <div class="w-full md:w-1/2 mb-8 md:mb-0">
+        <h2 class="text-2xl md:text-3xl lg:text-4xl font-bold mb-6">Explora Nuestro Ecosistema</h2>
+        <p class="text-lg text-gray-300 mb-8">Cada planeta representa un proyecto del ecosistema OCIC. Haz clic para conocer más.</p>
+
+        <!-- Sistema Solar Visualization -->
+        <div class="relative w-full max-w-xs md:max-w-md mx-auto aspect-square overflow-hidden bg-black">
+          
+          <!-- OCIC Star -->
+          <div class="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2">
+            <div class="w-20 h-20 md:w-24 md:h-24 rounded-full bg-yellow-400 shadow-lg shadow-yellow-400/50 animate-pulse-custom flex items-center justify-center relative">
+              <span class="text-sm md:text-base font-bold text-black">OCIC</span>
+              <div class="absolute inset-0 rounded-full border-2 border-white opacity-40 animate-ping"></div>
+              <div class="absolute inset-2 rounded-full border-2 border-white opacity-20 animate-ping delay-75"></div>
+              <div class="absolute inset-4 rounded-full border-2 border-white opacity-10 animate-ping delay-150"></div>
+            </div>
+          </div>
+
+          <!-- Planet Orbits and Planets -->
+          <div id="orbits" class="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 w-[90%] h-[90%]">
+            <!-- Mercury - VEXA -->
+            <div class="planet-orbit w-16 h-16 md:w-20 md:h-20"></div>
+            <div 
+              class="planet w-2 h-2 md:w-3 md:h-3 rounded-full bg-yellow-400" 
+              style="top: 50%; left: 20%;" 
+              onclick="selectPlanet('VEXA')"
+            >
+              <span class="planet-name">VEXA</span>
+            </div>
+
+            <!-- Venus - Exchange -->
+            <div class="planet-orbit w-24 h-24 md:w-32 md:h-32"></div>
+            <div 
+              class="planet w-2 h-2 md:w-3 md:h-3 rounded-full bg-indigo-500" 
+              style="top: 30%; left: 55%;" 
+              onclick="selectPlanet('Exchange')"
+            >
+              <span class="planet-name">Exchange</span>
+            </div>
+
+            <!-- Earth - OCIC Coin -->
+            <div class="planet-orbit w-32 h-32 md:w-40 md:h-40"></div>
+            <div 
+              class="planet w-2 h-2 md:w-3 md:h-3 rounded-full bg-pink-500" 
+              style="top: 70%; left: 70%;" 
+              onclick="selectPlanet('OCIC Coin')"
+            >
+              <span class="planet-name">OCIC Coin</span>
+            </div>
+
+            <!-- Mars - Movilidad -->
+            <div class="planet-orbit w-40 h-40 md:w-56 md:h-56"></div>
+            <div 
+              class="planet w-2 h-2 md:w-3 md:h-3 rounded-full bg-red-500" 
+              style="top: 15%; left: 80%;" 
+              onclick="selectPlanet('Movilidad')"
+            >
+              <span class="planet-name">Movilidad</span>
+            </div>
+
+            <!-- Jupiter - Tiquetes -->
+            <div class="planet-orbit w-48 h-48 md:w-64 md:h-64"></div>
+            <div 
+              class="planet w-3 h-3 md:w-4 md:h-4 rounded-full bg-green-500" 
+              style="top: 90%; left: 40%;" 
+              onclick="selectPlanet('Tiquetes')"
+            >
+              <span class="planet-name">Tiquetes</span>
+            </div>
+
+            <!-- Saturno - Viajes VIP -->
+            <div class="planet-orbit w-60 h-60 md:w-80 md:h-80"></div>
+            <div 
+              class="planet w-3 h-3 md:w-4 md:h-4 rounded-full bg-purple-500 relative" 
+              style="top: 20%; left: 10%;" 
+              onclick="selectPlanet('Viajes VIP')"
+            >
+              <div class="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 w-8 h-1 bg-white rounded-full opacity-70 scale-x-75"></div>
+              <span class="planet-name">Viajes VIP</span>
+            </div>
+
+            <!-- Urano - Tokenización Cannabis -->
+            <div class="planet-orbit w-72 h-72 md:w-96 md:h-96"></div>
+            <div 
+              class="planet w-3 h-3 md:w-4 md:h-4 rounded-full bg-teal-400" 
+              style="top: 85%; left: 15%;" 
+              onclick="selectPlanet('Tokenizacion Cannabis')"
+            >
+              <span class="planet-name">Tokenizacion</span>
+            </div>
+
+            <!-- Neptuno - Agroindustria -->
+            <div class="planet-orbit w-80 h-80 md:w-[26rem] md:h-[26rem]"></div>
+            <div 
+              class="planet w-3 h-3 md:w-4 md:h-4 rounded-full bg-blue-500" 
+              style="top: 60%; left: 5%;" 
+              onclick="selectPlanet('Agroindustria')"
+            >
+              <span class="planet-name">Agroindustria</span>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Información del Planeta (Derecha) -->
+      <div id="planet-details" class="w-full md:w-1/2 bg-gray-900 bg-opacity-60 p-6 md:p-8 rounded-xl border border-gray-700 backdrop-blur-sm">
+        <h2 id="planet-name" class="text-xl md:text-2xl font-bold mb-4 text-center">Selecciona un Proyecto</h2>
+        <div class="flex justify-center mb-4">
+          <div id="planet-circle" class="w-20 h-20 md:w-28 md:h-28 rounded-full bg-gray-700"></div>
+        </div>
+        <p id="planet-description" class="text-gray-300 text-center mb-6">Haz clic sobre un planeta para ver detalles del proyecto.</p>
+        <div class="space-y-3">
+          <div class="bg-gray-800 bg-opacity-50 p-3 rounded-lg">
+            <h4 class="font-medium text-gray-400 text-xs uppercase tracking-wide">Categoría</h4>
+            <p id="planet-category" class="text-sm">-</p>
+          </div>
+          <div class="bg-gray-800 bg-opacity-50 p-3 rounded-lg">
+            <h4 class="font-medium text-gray-400 text-xs uppercase tracking-wide">Tipo</h4>
+            <p id="planet-size" class="text-sm">-</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Planet Navigation Buttons -->
+    <section class="mt-12">
+      <h2 class="text-xl md:text-2xl font-bold mb-6 text-center">Proyectos del Ecosistema</h2>
+      <div class="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 gap-3 max-w-3xl mx-auto">
+        <button onclick="selectPlanet('VEXA')" class="py-2 px-4 rounded-lg text-sm font-medium bg-gray-800 hover:bg-gray-700 transition-all duration-300">VEXA</button>
+        <button onclick="selectPlanet('Exchange')" class="py-2 px-4 rounded-lg text-sm font-medium bg-gray-800 hover:bg-gray-700 transition-all duration-300">Exchange</button>
+        <button onclick="selectPlanet('OCIC Coin')" class="py-2 px-4 rounded-lg text-sm font-medium bg-gray-800 hover:bg-gray-700 transition-all duration-300">OCIC Coin</button>
+        <button onclick="selectPlanet('Movilidad')" class="py-2 px-4 rounded-lg text-sm font-medium bg-gray-800 hover:bg-gray-700 transition-all duration-300">Movilidad</button>
+        <button onclick="selectPlanet('Tiquetes')" class="py-2 px-4 rounded-lg text-sm font-medium bg-gray-800 hover:bg-gray-700 transition-all duration-300">Tiquetes</button>
+        <button onclick="selectPlanet('Viajes VIP')" class="py-2 px-4 rounded-lg text-sm font-medium bg-gray-800 hover:bg-gray-700 transition-all duration-300">Viajes VIP</button>
+        <button onclick="selectPlanet('Tokenizacion Cannabis')" class="py-2 px-4 rounded-lg text-sm font-medium bg-gray-800 hover:bg-gray-700 transition-all duration-300">Tokenizacion</button>
+        <button onclick="selectPlanet('Agroindustria')" class="py-2 px-4 rounded-lg text-sm font-medium bg-gray-800 hover:bg-gray-700 transition-all duration-300">Agroindustria</button>
+      </div>
+    </section>
+  </main>
+
+  <!-- Footer -->
+  <footer class="bg-black pt-12 pb-6 mt-16 border-t border-gray-800">
+    <div class="container mx-auto px-4 text-center">
+      <img src="assets/ocic-logo.png" alt="Logo OCIC" class="h-10 mx-auto mb-4">
+      <p class="text-gray-500 text-sm">© 2025 Ecosistema OCIC | Diseñado con HTML & TailwindCSS</p>
+    </div>
+  </footer>
+
+  <!-- JS Logic -->
+  <script>
+    const planetsData = {
+      "VEXA": {
+        color: "#FBBF24",
+        description: "El neobanco digital que impulsa las transacciones seguras y eficientes en todo el ecosistema OCIC.",
+        category: "Neobanco",
+        size: "Plataforma Financiera"
+      },
+      "Exchange": {
+        color: "#6366F1",
+        description: "La plataforma de intercambio de activos digitales que conecta usuarios con el mundo blockchain.",
+        category: "Criptoexchange",
+        size: "Infraestructura Tecnológica"
+      },
+      "OCIC Coin": {
+        color: "#EC4899",
+        description: "La criptomoneda nativa del ecosistema OCIC para pagos, staking y gobernanza.",
+        category: "Criptomoneda",
+        size: "Activo Digital"
+      },
+      "Movilidad": {
+        color: "#EF4444",
+        description: "Aplicación de movilidad urbana para transporte seguro, rápido y eficiente.",
+        category: "Movilidad",
+        size: "App de Transporte"
+      },
+      "Tiquetes": {
+        color: "#10B981",
+        description: "Plataforma de venta de tiquetes para eventos deportivos, conciertos y espectáculos públicos.",
+        category: "Eventos",
+        size: "Plataforma de Tickets"
+      },
+      "Viajes VIP": {
+        color: "#8B5CF6",
+        description: "Agencia de viajes especializada en servicios premium y experiencias únicas.",
+        category: "Turismo",
+        size: "Agencia VIP"
+      },
+      "Tokenizacion Cannabis": {
+        color: "#14B8A6",
+        description: "Plataforma de tokenización de cultivos de cannabis para inversión y comercialización transparente.",
+        category: "Blockchain",
+        size: "FinTech Agrícola"
+      },
+      "Agroindustria": {
+        color: "#3B82F6",
+        description: "Proyectos agroindustriales integrados: finca lechera, granja avícola, plantación de cannabis y acuicultura.",
+        category: "Agricultura",
+        size: "Granjas Integradas"
+      }
+    };
+
+    function selectPlanet(name) {
+      const planet = planetsData[name];
+      if (!planet) return;
+
+      document.getElementById("planet-name").textContent = name;
+      document.getElementById("planet-description").textContent = planet.description;
+      document.getElementById("planet-category").textContent = planet.category;
+      document.getElementById("planet-size").textContent = planet.size;
+      document.getElementById("planet-circle").style.backgroundColor = planet.color;
+    }
+
+    // Mostrar VEXA por defecto
+    window.onload = () => selectPlanet("VEXA");
+  </script>
+</body>
+</html>
